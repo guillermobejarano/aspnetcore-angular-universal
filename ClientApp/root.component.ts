@@ -12,13 +12,16 @@ import { REQUEST } from '@nguniversal/aspnetcore-engine/tokens';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { filter, map, mergeMap } from 'rxjs/operators';
-//import { LinkService } from './shared/link.service';
+//import { LinkService } from './app/shared/link.service';
 
 @Component({
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+    selector: 'app-root',
+    template: `<router-outlet></router-outlet>`,
+   // styleUrls: ['./root.component.scss'],
+    encapsulation: ViewEncapsulation.None
 })
-export class AppComponent implements OnInit, OnDestroy {
+
+export class RootComponent implements OnInit, OnDestroy {
   // This will go at the END of your title for example "Home - Angular Universal..." <-- after the dash (-)
   private endPageTitle: string = 'Angular Universal and ASP.NET Core Starter';
   // If no Title is provided, we'll use a default one before the dash(-)

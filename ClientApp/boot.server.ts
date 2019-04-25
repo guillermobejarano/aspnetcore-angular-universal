@@ -6,7 +6,7 @@ import { createTransferScript, IEngineOptions, ngAspnetCoreEngine } from '@nguni
 import { createServerRenderer } from 'aspnet-prerendering';
 
 // Grab the (Node) server-specific NgModule
-import { AppModule } from './app/app.module.server';
+import { RootModule } from './root.module.server';
 
 enableProdMode();
 
@@ -15,7 +15,7 @@ export default createServerRenderer((params) => {
   // Platform-server provider configuration
   const setupOptions: IEngineOptions = {
     appSelector: '<app-root></app-root>',
-    ngModule: AppModule,
+    ngModule: RootModule,
     request: params,
     providers: [
       // Optional - Any other Server providers you want to pass

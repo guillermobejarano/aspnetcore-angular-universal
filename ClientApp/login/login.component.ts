@@ -12,13 +12,12 @@ import { REQUEST } from '@nguniversal/aspnetcore-engine/tokens';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { filter, map, mergeMap } from 'rxjs/operators';
-//import { LinkService } from './shared/link.service';
 
 @Component({
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.scss']
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class LoginComponent implements OnInit, OnDestroy {
   // This will go at the END of your title for example "Home - Angular Universal..." <-- after the dash (-)
   private endPageTitle: string = 'Angular Universal and ASP.NET Core Starter';
   // If no Title is provided, we'll use a default one before the dash(-)
@@ -32,7 +31,6 @@ export class AppComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private title: Title,
     private meta: Meta,
-    //private linkService: LinkService,
     public translate: TranslateService,
     private injector: Injector
   ) {
@@ -93,9 +91,5 @@ export class AppComponent implements OnInit, OnDestroy {
     for (let i = 0; i < metaData.length; i++) {
       this.meta.updateTag(metaData[i]);
     }
-
-    //for (let i = 0; i < linksData.length; i++) {
-    //  this.linkService.addTag(linksData[i]);
-    //}
   }
 }

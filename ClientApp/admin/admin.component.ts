@@ -15,10 +15,12 @@ import { filter, map, mergeMap } from 'rxjs/operators';
 //import { LinkService } from './shared/link.service';
 
 @Component({
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  selector: 'admin-root',
+  templateUrl: './admin.component.html',
+    styleUrls: ['./admin.component.scss'],
+    encapsulation: ViewEncapsulation.None
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AdminComponent implements OnInit, OnDestroy {
   // This will go at the END of your title for example "Home - Angular Universal..." <-- after the dash (-)
   private endPageTitle: string = 'Angular Universal and ASP.NET Core Starter';
   // If no Title is provided, we'll use a default one before the dash(-)
