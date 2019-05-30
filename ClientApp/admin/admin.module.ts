@@ -23,6 +23,8 @@ import { LinkService } from './shared/link.service';
 import { UserService } from './shared/user.service';
 import { RolService } from './shared/rol.service';
 import { AdminRoutingModule } from './admin-routing.module';
+import { AuthGuard } from '../shared/auth/auth.guard';
+import { AuthenticationService } from '../shared/auth/authentication.service';
 
 export function createTranslateLoader(http: HttpClient, baseHref) {
   // Temporary Azure hack
@@ -47,6 +49,6 @@ export function createTranslateLoader(http: HttpClient, baseHref) {
     HttpClientModule,
     AdminRoutingModule
   ],
-  providers: [LinkService, UserService, RolService, TranslateModule],
+    providers: [LinkService, UserService, RolService, TranslateModule, AuthenticationService, AuthGuard],
 })
 export class AdminModule {}

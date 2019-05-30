@@ -12,6 +12,7 @@ import { REQUEST } from '@nguniversal/aspnetcore-engine/tokens';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { filter, map, mergeMap } from 'rxjs/operators';
+import { AuthenticationService } from '../shared/auth/authentication.service';
 
 @Component({
     templateUrl: './login.component.html',
@@ -26,70 +27,40 @@ export class LoginComponent implements OnInit, OnDestroy {
   private routerSub$: Subscription;
   private request;
 
+  model: any = {};
+  loading = false;
+  returnUrl: string;
+  wrongPassword: boolean;
+
   constructor(
     private router: Router,
-    private activatedRoute: ActivatedRoute,
-    private title: Title,
-    private meta: Meta,
-    public translate: TranslateService,
-    private injector: Injector
+    private injector: Injector,
+    private authService: AuthenticationService
   ) {
-    // this language will be used as a fallback when a translation isn't found in the current language
-    translate.setDefaultLang('en');
-
-    // the lang to use, if the lang isn't available, it will use the current loader to get them
-    translate.use('en');
-
-    this.request = this.injector.get(REQUEST);
-
-    console.log(`What's our REQUEST Object look like?`);
-    console.log(
-      `The Request object only really exists on the Server, but on the Browser we can at least see Cookies`
-    );
-    console.log(this.request);
   }
 
   ngOnInit() {
     // Change "Title" on every navigationEnd event
     // Titles come from the data.title property on all Routes (see app.routes.ts)
-    this._changeTitleOnNavigation();
+    //this._changeTitleOnNavigation();
   }
 
   ngOnDestroy() {
     // Subscription clean-up
-    this.routerSub$.unsubscribe();
+    //this.routerSub$.unsubscribe();
   }
 
-  private _changeTitleOnNavigation() {
-    this.routerSub$ = this.router.events
-      .pipe(
-        filter(event => event instanceof NavigationEnd),
-        map(() => this.activatedRoute),
-        map(route => {
-          while (route.firstChild) route = route.firstChild;
-          return route;
-        }),
-        filter(route => route.outlet === 'primary'),
-        mergeMap(route => route.data)
-      )
-      .subscribe(event => {
-        this._setMetaAndLinks(event);
-      });
-  }
-
-  private _setMetaAndLinks(event) {
-    // Set Title if available, otherwise leave the default Title
-    const title = event['title']
-      ? `${event['title']} - ${this.endPageTitle}`
-      : `${this.defaultPageTitle} - ${this.endPageTitle}`;
-
-    this.title.setTitle(title);
-
-    const metaData = event['meta'] || [];
-    const linksData = event['links'] || [];
-
-    for (let i = 0; i < metaData.length; i++) {
-      this.meta.updateTag(metaData[i]);
-    }
+  login() {
+    console.log(this.model);
+    this.loading = true;
+      this.authService.login(this.model.name, this.model.password)
+          .subscribe(data => {
+              this.wrongPassword = false;
+              //this.router.navigate([this.returnUrl]);
+          },
+              error => {
+                  this.wrongPassword = true;
+                  this.loading = false;
+              });
   }
 }

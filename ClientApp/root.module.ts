@@ -13,7 +13,7 @@ import { TransferHttpCacheModule } from '@nguniversal/common';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AccordionModule } from 'ngx-bootstrap';
-import { RootComponent } from './root.component';
+import { AuthGuard } from './shared/auth/auth.guard';
 
 export function createTranslateLoader(http: HttpClient, baseHref) {
   // Temporary Azure hack
@@ -60,6 +60,7 @@ export function createTranslateLoader(http: HttpClient, baseHref) {
               },
               {
                   path: 'admin',
+                  //canActivate: [AuthGuard],
                   loadChildren: './admin/admin.module#AdminModule', // Lazy load account module
                   data: { preload: true }
                   //path: 'home',

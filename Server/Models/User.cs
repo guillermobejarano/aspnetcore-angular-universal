@@ -5,6 +5,7 @@ namespace AspCoreServer.Models {
     public class User {
         public int ID { get; set; }
         public string Name { get; set; }
+        public string Password { get; set; }
 
         [DisplayFormat (DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [DataType (DataType.Date)]

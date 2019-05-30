@@ -6,6 +6,7 @@ import { HomeComponent } from './containers/home/home.component';
 import { UsuarioComponent } from './containers/usuario/usuario.component';
 import { NotFoundComponent } from './containers/not-found/not-found.component';
 import { AdminComponent } from './admin.component';
+import { AuthGuard } from '../shared/auth/auth.guard';
 
 @NgModule({
     imports: [
@@ -16,13 +17,15 @@ import { AdminComponent } from './admin.component';
                 {
                     path: '',
                     component: AdminComponent,
+                    //canActivateChild: [AuthGuard],
                     children: [{
                         path: 'home',
                         component: HomeComponent
                     },
                     {
                         path: "user",
-                        component: UsuarioComponent
+                        component: UsuarioComponent,
+                        canActivate: [AuthGuard]
                     },
                     {
                         path: '**',

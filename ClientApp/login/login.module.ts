@@ -15,6 +15,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AccordionModule } from 'ngx-bootstrap';
 import { LoginComponent } from './login.component';
 import { LoginRoutingModule } from './login-routing.module';
+import { AuthenticationService } from '../shared/auth/authentication.service';
 
 export function createTranslateLoader(http: HttpClient, baseHref) {
   // Temporary Azure hack
@@ -31,7 +32,9 @@ export function createTranslateLoader(http: HttpClient, baseHref) {
   ],
   imports: [
     CommonModule,
-    LoginRoutingModule
-  ]
+    LoginRoutingModule,
+    FormsModule
+  ],
+  providers: [AuthenticationService],
 })
 export class LoginModule {}
