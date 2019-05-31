@@ -14,6 +14,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AccordionModule } from 'ngx-bootstrap';
 import { AppComponent } from './app.component';
+import { HomeComponent } from './containers/home/home.component';
 
 
 export function createTranslateLoader(http: HttpClient, baseHref) {
@@ -28,13 +29,25 @@ export function createTranslateLoader(http: HttpClient, baseHref) {
 @NgModule({
   imports: [
     CommonModule,
-    
+      // App Routing
+      RouterModule.forChild(
+          [
+              {
+                  path: '',
+                  component: AppComponent,
+                  children: [{
+                      path: 'home',
+                      component: HomeComponent
+                  }]
+              }
+          ]
+      )
     // App Routing
-    RouterModule.forChild(
-      [
-        {
-          path: 'home',
-          component: AppComponent//,
+    //RouterModule.forChild(
+    //  [
+    //    {
+    //      path: 'home',
+    //      component: AppComponent//,
         //  children: [ {
         //      path: 'home',
         //      component: HomeComponent,
@@ -62,8 +75,8 @@ export function createTranslateLoader(http: HttpClient, baseHref) {
         //    ]
         //  }
         //}] 
-            }       
-      ])
+      ///      }       
+      ///])
   ],
   //providers: [LinkService, UserService, RolService, PermisoService, TranslateModule],
   exports: [RouterModule]
